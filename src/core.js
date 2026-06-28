@@ -30,11 +30,11 @@ export function calculateDiscount(price, discountCode) {
 export function validateUserInput(username, age) {
   let errors = [];
 
-  if (typeof username !== 'string' || username.length < 3) {
+  if (typeof username !== 'string' || username.length < 3 || username.length > 255) {
     errors.push('Invalid username');
   }
 
-  if (typeof age !== 'number' || age < 18) {
+  if (typeof age !== 'number' || age < 18 || age > 100) {
     errors.push('Invalid age');
   }
 
@@ -48,9 +48,10 @@ export function isPriceInRange(price, min, max) {
 
 // Exercise: Boundary testing
 export function isValidUsername(username) {
+  if(typeof username !== 'string') return false;
   const minLength = 5;
   const maxLength = 15;
-
+  
   return username.length >= minLength && username.length <= maxLength;
 }
 
@@ -70,6 +71,8 @@ export function canDrive(age, countryCode) {
 
 // Lesson: Testing asynchronous code
 export function fetchData() {
+  return Promise.reject({reason: 'Operation failed'})
+
   return new Promise((resolve) => {
     setTimeout(() => {
       const data = [1, 2, 3];
@@ -156,3 +159,6 @@ export function isStrongPassword(password) {
   // If all criteria are met, consider the password strong
   return true;
 }
+
+
+
